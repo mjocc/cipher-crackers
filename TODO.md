@@ -1,0 +1,1 @@
+- [ ] Add option to dump ciphertext to chosen file

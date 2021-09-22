@@ -173,62 +173,42 @@ def encrypt(plaintext, key):
     return ciphertext
 
 
-def main():
-    ask = True
-    while ask:
-        text = input("Enter e to encrypt, or d to decrypt: ")
-        if text == "e":
-            plaintext_unfiltered = input("Enter plaintext to encrypt: ")
-            key_unfiltered = input("Enter key to encrypt with: ")
+def encode(text, key):
+    plaintext_unfiltered = text
+    key_unfiltered = key
 
-            # Filters the text so it is only alphanumeric characters, and lowercase
-            plaintext = "".join(x.lower() for x in plaintext_unfiltered if x.isalpha())
-            key = "".join(x.lower() for x in key_unfiltered if x.isalpha())
-            print(key)
+    # Filters the text so it is only alphanumeric characters, and lowercase
+    plaintext = "".join(x.lower() for x in plaintext_unfiltered if x.isalpha())
+    key = "".join(x.lower() for x in key_unfiltered if x.isalpha())
 
-            ciphertext = encrypt(plaintext, key)
-            print("Ciphertext: {}".format(ciphertext))
-
-            ask = False
-        elif text == "d":
-            ciphertext_unfiltered = input("Enter ciphertext to decrypt: ")
-
-            # Filters the text so it is only alphanumeric characters, and lowercase
-            ciphertext = "".join(
-                x.lower() for x in ciphertext_unfiltered if x.isalpha()
-            )
-
-            askkey = True
-            while askkey:
-                torf = input("Do you know the key to decrypt with? Enter y or n: ")
-                if torf == "n":
-
-                    key_length = get_key_length(ciphertext)
-                    print("Key length is most likely {}".format(key_length))
-
-                    key = get_key(ciphertext, key_length)
-                    plaintext = decrypt(ciphertext, key)
-
-                    print("Key: {}".format(key))
-                    print("Plaintext: {}".format(plaintext))
-
-                    askkey = False
-                elif torf == "y":
-
-                    key_unfiltered = input("Enter key to decrypt with: ")
-                    key = "".join(x.lower() for x in key_unfiltered if x.isalpha())
-                    plaintext = decrypt(ciphertext, key)
-
-                    print("Plaintext: {}".format(plaintext))
-
-                    askkey = False
-                else:
-                    print("Not a valid input")
-
-            ask = False
-        else:
-            print("Not a valid input")
+    ciphertext = encrypt(plaintext, key)
+    print("Ciphertext: {}".format(ciphertext))
 
 
-if __name__ == "__main__":
-    main()
+def decode(text, key):
+    ciphertext_unfiltered = text
+    key_unfiltered = key
+
+    # Filters the text so it is only alphanumeric characters, and lowercase
+    ciphertext = "".join(x.lower() for x in ciphertext_unfiltered if x.isalpha())
+
+    key = "".join(x.lower() for x in key_unfiltered if x.isalpha())
+    plaintext = decrypt(ciphertext, key)
+
+    print("Plaintext: {}".format(plaintext))
+
+
+def crack(text):
+    ciphertext_unfiltered = text
+
+    # Filters the text so it is only alphanumeric characters, and lowercase
+    ciphertext = "".join(x.lower() for x in ciphertext_unfiltered if x.isalpha())
+
+    key_length = get_key_length(ciphertext)
+    print("Key length is most likely {}".format(key_length))
+
+    key = get_key(ciphertext, key_length)
+    plaintext = decrypt(ciphertext, key)
+
+    print("Key: {}".format(key))
+    print("Plaintext: {}".format(plaintext))
