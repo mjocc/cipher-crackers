@@ -28,6 +28,16 @@ Install package
 $ pip install .
 ```
 
+Build for production
+```shell
+$ python setup.py sdist
+```
+
+Publish to GitHub releases (only works with valid gh credentials and gh cli)
+```shell
+$ gh release create vx.x.x ./dist/*.tar.gz
+```
+
 ## To run
 
 Use the command `ciphertool`  
