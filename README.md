@@ -18,14 +18,19 @@ $ python -m venv env
 $ source env/bin/activate
 ```
 
-Install wheel
+Install dependencies
+```shell
+$  pip install -r requirements.txt
+```
+
+Install wheel (if not already installed)
 ```shell
 $ pip install wheel
 ```
 
 Install package
 ```shell
-$ pip install .
+$ pip install -e .
 ```
 
 Build for production
