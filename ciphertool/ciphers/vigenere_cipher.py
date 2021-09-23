@@ -35,7 +35,6 @@ english_frequences = [
 def get_index_c(ciphertext):
 
     N = float(len(ciphertext))
-    print(N)
     frequency_sum = 0.0
 
     # Using Index of Coincidence formula
