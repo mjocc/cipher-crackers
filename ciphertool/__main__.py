@@ -2,7 +2,7 @@ import click
 
 import ciphertool.ciphers.vigenere_cipher as vigenere
 
-ciphers = {"vignere": vigenere}
+ciphers = {"vigenere": vigenere}
 
 
 @click.command()
@@ -39,7 +39,15 @@ ciphers = {"vignere": vigenere}
     default=None,
     help="Key to be used in encoding/decoding.",
 )
-def cli(operation, cipher_name, raw_text, text_file, key):
+@click.option(
+    "-o",
+    "--output",
+    "output_file",
+    type=click.File(mode="wt"),
+    default=None,
+    help="File for output text to be written to."
+)
+def cli(operation, cipher_name, raw_text, text_file, key, output_file):
     """
     Utility for encoding, decoding, and cracking text using common ciphers.
     """
@@ -56,14 +64,21 @@ def cli(operation, cipher_name, raw_text, text_file, key):
     cipher = ciphers[cipher_name]
 
     if operation == "encode":
-        cipher.encode(text, key)
+        output_text = cipher.encode(text, key)
     elif operation == "decode":
-        cipher.decode(text, key)
+        output_text = cipher.decode(text, key)
     elif operation == "crack":
-        cipher.crack(text)
+        output_text = cipher.crack(text)
     else:
         click.echo("Something went wrong. Please try again.")
 
+    text_type = 'Ciphertext' if operation == 'encode' else 'Plaintext'
+
+    if output_file is not None:
+        output_file.write(output_text)
+        click.echo(f'{text_type} saved to {output_file.name}')
+    else:
+        click.echo(f"{text_type}: {output_text}")
 
 if __name__ == "__main__":
     cli()

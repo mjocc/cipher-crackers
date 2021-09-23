@@ -31,10 +31,11 @@ english_frequences = [
     0.00074,
 ]
 
-# Returns the Index of Councidence for the "section" of ciphertext given
+# Returns the Index of Coincidence for the "section" of ciphertext given
 def get_index_c(ciphertext):
 
     N = float(len(ciphertext))
+    print(N)
     frequency_sum = 0.0
 
     # Using Index of Coincidence formula
@@ -53,7 +54,7 @@ def get_key_length(ciphertext):
     # Splits the ciphertext into sequences based on the guessed key length from 0 until the max key length guess (20)
     # Ex. guessing a key length of 2 splits the "12345678" into "1357" and "2468"
     # This procedure of breaking ciphertext into sequences and sorting it by the Index of Coincidence
-    # The guessed key length with the highest IC is the most porbable key length
+    # The guessed key length with the highest IC is the most probable key length
     for guess_len in range(MAX_KEY_LENGTH_GUESS):
         ic_sum = 0.0
         avg_ic = 0.0
@@ -182,7 +183,8 @@ def encode(text, key):
     key = "".join(x.lower() for x in key_unfiltered if x.isalpha())
 
     ciphertext = encrypt(plaintext, key)
-    print("Ciphertext: {}".format(ciphertext))
+
+    return ciphertext.upper()
 
 
 def decode(text, key):
@@ -195,7 +197,7 @@ def decode(text, key):
     key = "".join(x.lower() for x in key_unfiltered if x.isalpha())
     plaintext = decrypt(ciphertext, key)
 
-    print("Plaintext: {}".format(plaintext))
+    return plaintext
 
 
 def crack(text):
@@ -211,4 +213,5 @@ def crack(text):
     plaintext = decrypt(ciphertext, key)
 
     print("Key: {}".format(key))
-    print("Plaintext: {}".format(plaintext))
+
+    return plaintext
