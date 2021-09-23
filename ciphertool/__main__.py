@@ -1,5 +1,6 @@
 import click
 
+from .identifier import main as identify
 import ciphertool.ciphers.vigenere_cipher as vigenere
 
 ciphers = {"vigenere": vigenere}
@@ -8,7 +9,7 @@ ciphers = {"vigenere": vigenere}
 @click.command()
 @click.argument(
     "operation",
-    type=click.Choice(("encode", "decode", "crack"), case_sensitive=False),
+    type=click.Choice(("encode", "decode", "crack", "identify"), case_sensitive=False),
     required=True,
 )
 @click.argument(
@@ -69,6 +70,8 @@ def cli(operation, cipher_name, raw_text, text_file, key, output_file):
         output_text = cipher.decode(text, key)
     elif operation == "crack":
         output_text = cipher.crack(text)
+    elif operation == "identify":
+        identify()
     else:
         click.echo("Something went wrong. Please try again.")
 
