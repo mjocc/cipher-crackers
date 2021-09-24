@@ -75,11 +75,12 @@ def ciphertext_frequencies(ciphertext, printed):
 
 
 # takes user input and calls functions for frequencies and IC calculation
-def main():
+def main(ciphertext_unfiltered=None):
 
     chi_squared_sum = 0
 
-    ciphertext_unfiltered = input("Enter ciphertext to analyse: \n\n\n\n ")
+    if ciphertext_unfiltered is None:
+        ciphertext_unfiltered = input("Enter ciphertext to analyse: \n\n\n\n ")
 
     # Filters the text so it is only alphanumeric characters, and lowercase
     ciphertext = "".join(x.lower() for x in ciphertext_unfiltered if x.isalpha())
