@@ -2,8 +2,9 @@ import click
 
 from ciphertool.identifier import main as identifier
 import ciphertool.ciphers.vigenere_cipher as vigenere
+import ciphertool.ciphers.transposition_cipher as transposition
 
-ciphers = {"vigenere": vigenere}
+ciphers = {"vigenere": vigenere, "transposition": transposition}
 
 
 def cipher_name_argument(function):

@@ -38,7 +38,7 @@ Build for production
 $ python setup.py sdist
 ```
 
-Publish to GitHub releases (only works with valid gh credentials and gh cli)
+Publish to GitHub releases (requires authorised gh credentials and gh cli)
 ```shell
 $ python setup.py sdist && gh release create vx.x.x ./dist/*.tar.gz
 ```
